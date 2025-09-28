@@ -10,8 +10,11 @@ class AppRouter {
         builder: (context, state) => const HomePage(),
       ),
       GoRoute(
-        path: '/about',
-        builder: (context, state) => const AboutPage(),
+        path: '/about/:index',
+        builder: (context, state) {
+          final index = int.parse(state.pathParameters['index']!);
+          return AboutPage(index: index);
+        },
       ),
     ],
   );

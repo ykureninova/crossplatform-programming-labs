@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'About Me App',
+      title: 'Resume Builder',
       routerConfig: AppRouter.router,
     );
   }

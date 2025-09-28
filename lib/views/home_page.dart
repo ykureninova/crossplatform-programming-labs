@@ -1,57 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../viewmodels/user_viewmodel.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
-  int _calculateSelectedIndex(BuildContext context) {
-    final location = GoRouterState.of(context).uri.toString();
-    if (location == '/about') return 1;
-    return 0;
-  }
-
-  void _onDestinationSelected(BuildContext context, int index) {
-    switch (index) {
-      case 0:
-        context.go('/');
-        break;
-      case 1:
-        context.go('/about');
-        break;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    final selectedIndex = _calculateSelectedIndex(context);
+    final vm = UserViewModel();
 
     return Scaffold(
       body: Row(
         children: [
           SafeArea(
             child: NavigationRail(
-              selectedIndex: selectedIndex,
-              onDestinationSelected: (index) => _onDestinationSelected(context, index),
+              selectedIndex: 0,
+              onDestinationSelected: (i) {
+                if (i == 0) context.go('/');
+              },
               labelType: NavigationRailLabelType.all,
               destinations: const [
-                NavigationRailDestination(
-                  icon: Icon(Icons.home),
-                  label: Text('Головна'),
-                ),
-                NavigationRailDestination(
-                  icon: Icon(Icons.person),
-                  label: Text('Про мене'),
-                ),
+                NavigationRailDestination(icon: Icon(Icons.home), label: Text('Головна')),
               ],
             ),
           ),
           const VerticalDivider(thickness: 1, width: 1),
           Expanded(
-            child: Center(
-              child: Text(
-                "Вітаю у додатку!",
-                style: TextStyle(fontSize: 20),
-              ),
+            child: ListView.builder(
+              itemCount: vm.users.length,
+              itemBuilder: (context, index) {
+                final user = vm.users[index];
+                return ListTile(
+                  leading: CircleAvatar(backgroundImage: AssetImage(user.avatarPath)),
+                  title: Text(user.name),
+                  subtitle: Text(user.bio),
+                  onTap: () => context.go('/about/$index'),
+                );
+              },
             ),
           ),
         ],
