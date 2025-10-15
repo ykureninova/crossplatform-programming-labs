@@ -17,10 +17,18 @@ class HomePage extends StatelessWidget {
               selectedIndex: 0,
               onDestinationSelected: (i) {
                 if (i == 0) context.go('/');
+                if (i == 1) context.go('/github');
               },
               labelType: NavigationRailLabelType.all,
               destinations: const [
-                NavigationRailDestination(icon: Icon(Icons.home), label: Text('Головна')),
+                NavigationRailDestination(
+                  icon: Icon(Icons.home),
+                  label: Text('Головна'),
+                ),
+                NavigationRailDestination(
+                  icon: Icon(Icons.code),
+                  label: Text('GitHub'),
+                ),
               ],
             ),
           ),
@@ -31,7 +39,9 @@ class HomePage extends StatelessWidget {
               itemBuilder: (context, index) {
                 final user = vm.users[index];
                 return ListTile(
-                  leading: CircleAvatar(backgroundImage: AssetImage(user.avatarPath)),
+                  leading: CircleAvatar(
+                    backgroundImage: AssetImage(user.avatarPath),
+                  ),
                   title: Text(user.name),
                   subtitle: Text(user.bio),
                   onTap: () => context.go('/about/$index'),
