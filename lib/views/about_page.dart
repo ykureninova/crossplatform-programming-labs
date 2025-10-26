@@ -54,15 +54,16 @@ class AboutPage extends StatelessWidget {
 
     final user = vm.users[index];
 
-    return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 245, 245, 250),
-      appBar: AppBar(
-        title: const Text('Деталі резюме'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => context.go('/'),
-        ),
-      ),
+return Scaffold(
+  backgroundColor: Theme.of(context).colorScheme.surface,
+  appBar: AppBar(
+    title: const Text('Деталі резюме'),
+    leading: IconButton(
+      icon: const Icon(Icons.arrow_back),
+      onPressed: () => context.go('/'),
+    ),
+  ),
+
       body: Row(
         children: [
           SafeArea(

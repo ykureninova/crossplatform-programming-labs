@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import '../viewmodels/user_viewmodel.dart';
+import '../viewmodels/theme_viewmodel.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -10,14 +11,23 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final vm = Provider.of<UserViewModel>(context);
+    final themeVM = Provider.of<ThemeViewModel>(context);
 
     if (!vm.loaded) {
-      return const Scaffold(
-        body: Center(child: CircularProgressIndicator()),
-      );
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Resume Builder'),
+        actions: [
+          IconButton(
+            icon: Icon(themeVM.isDark ? Icons.light_mode : Icons.dark_mode),
+            onPressed: () => themeVM.toggleTheme(),
+            tooltip: themeVM.isDark ? 'Світла тема' : 'Темна тема',
+          ),
+        ],
+      ),
       body: Row(
         children: [
           SafeArea(
