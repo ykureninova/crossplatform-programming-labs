@@ -2,9 +2,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-
 import '../viewmodels/user_viewmodel.dart';
 import '../viewmodels/theme_viewmodel.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import '../widgets/banner_ad_widget.dart';
 
 class HomePage extends StatelessWidget {
@@ -30,6 +30,11 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
+
+      bottomNavigationBar: !kIsWeb
+          ? const BannerAdWidget()
+          : null,
+
       body: Row(
         children: [
           SafeArea(
@@ -145,7 +150,6 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: const BannerAdWidget(),
     );
   }
 }

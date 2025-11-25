@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-
 import 'app_router.dart';
 import 'viewmodels/github_viewmodel.dart';
 import 'viewmodels/user_viewmodel.dart';
 import 'viewmodels/theme_viewmodel.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Ініціалізація реклами
-  await MobileAds.instance.initialize();
+  if (!kIsWeb) {
+    await MobileAds.instance.initialize();
+  }
 
   runApp(
     MultiProvider(
