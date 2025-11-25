@@ -35,12 +35,11 @@ class HomePage extends StatelessWidget {
               selectedIndex: 0,
               onDestinationSelected: (i) {
                 if (i == 0) context.go('/');
-                if (i == 1) context.go('/github');
               },
               labelType: NavigationRailLabelType.all,
               destinations: const [
-                NavigationRailDestination(icon: Icon(Icons.home), label: Text('Головна')),
-                NavigationRailDestination(icon: Icon(Icons.code), label: Text('GitHub')),
+                NavigationRailDestination(
+                    icon: Icon(Icons.home), label: Text('Головна')),
               ],
             ),
           ),
@@ -53,8 +52,10 @@ class HomePage extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text('Список резюме',
-                          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+                      const Text(
+                        'Список резюме',
+                        style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                      ),
                       ElevatedButton.icon(
                         onPressed: () => context.push('/resume_form'),
                         icon: const Icon(Icons.add),
@@ -112,15 +113,19 @@ class HomePage extends StatelessWidget {
                                         content: Text('Видалити резюме ${user.name}?'),
                                         actions: [
                                           TextButton(
-                                              onPressed: () => Navigator.pop(ctx),
-                                              child: const Text('Скасувати')),
+                                            onPressed: () => Navigator.pop(ctx),
+                                            child: const Text('Скасувати'),
+                                          ),
                                           TextButton(
-                                              onPressed: () {
-                                                vm.deleteUser(index);
-                                                Navigator.pop(ctx);
-                                              },
-                                              child: const Text('Видалити',
-                                                  style: TextStyle(color: Colors.redAccent))),
+                                            onPressed: () {
+                                              vm.deleteUser(index);
+                                              Navigator.pop(ctx);
+                                            },
+                                            child: const Text(
+                                              'Видалити',
+                                              style: TextStyle(color: Colors.redAccent),
+                                            ),
+                                          ),
                                         ],
                                       ),
                                     );

@@ -4,17 +4,18 @@ import '../repositories/github_repository.dart';
 
 class GithubViewModel extends ChangeNotifier {
   final GithubRepository _repo = GithubRepository();
-  GithubModel? _user;
+
   bool _loading = false;
+  GithubModel? _data;
 
-  GithubModel? get user => _user;
   bool get loading => _loading;
+  GithubModel? get data => _data;
 
-  Future<void> fetchUser(String username) async {
+  Future<void> load(String username) async {
     _loading = true;
     notifyListeners();
 
-    _user = await _repo.getUserData(username);
+    _data = await _repo.getUserData(username);
 
     _loading = false;
     notifyListeners();

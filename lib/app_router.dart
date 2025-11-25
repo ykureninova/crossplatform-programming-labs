@@ -1,7 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'views/home_page.dart';
 import 'views/about_page.dart';
-import 'views/github_page.dart';
 import 'views/resume_form_page.dart';
 
 class AppRouter {
@@ -17,10 +16,6 @@ class AppRouter {
           final index = int.parse(state.pathParameters['index']!);
           return AboutPage(index: index);
         },
-      ),
-      GoRoute(
-        path: '/github',
-        builder: (context, state) => const GithubPage(),
       ),
       GoRoute(
         path: '/resume_form',

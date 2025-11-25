@@ -1,7 +1,11 @@
+import 'dart:convert';
 import '../models/user_model.dart';
+import '../services/shared_prefs_service.dart';
 
 class UserRepository {
-  final List<UserModel> _users = const [
+  final SharedPrefsService _prefs = SharedPrefsService();
+
+  final List<UserModel> _defaultUsers = const [
     UserModel(
       name: "Єлизавета Куренінова",
       bio: "Студентка НТУ ХПІ",
@@ -57,5 +61,43 @@ class UserRepository {
     ),
   ];
 
-  List<UserModel> getAll() => _users;
+  Future<List<UserModel>> loadUsers() async {
+    final list = await _prefs.loadStringList('users');
+    if (list == null) return _defaultUsers;
+
+    return list.map((s) => _fromJson(json.decode(s))).toList();
+  }
+
+  Future<void> saveUsers(List<UserModel> users) async {
+    final encoded = users.map((u) => json.encode(_toJson(u))).toList();
+    await _prefs.saveStringList('users', encoded);
+  }
+
+  Map<String, dynamic> _toJson(UserModel u) => {
+        'name': u.name,
+        'bio': u.bio,
+        'avatarPath': u.avatarPath,
+        'location': u.location,
+        'email': u.email,
+        'phone': u.phone,
+        'linkedin': u.linkedin,
+        'github': u.github,
+        'education': u.education,
+        'experience': u.experience,
+        'skills': u.skills,
+      };
+
+  UserModel _fromJson(Map<String, dynamic> m) => UserModel(
+        name: m['name'],
+        bio: m['bio'],
+        avatarPath: m['avatarPath'],
+        location: m['location'],
+        email: m['email'],
+        phone: m['phone'],
+        linkedin: m['linkedin'],
+        github: m['github'],
+        education: (m['education'] as List).cast<String>(),
+        experience: (m['experience'] as List).cast<String>(),
+        skills: (m['skills'] as List).cast<String>(),
+      );
 }
