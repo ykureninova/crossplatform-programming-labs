@@ -21,13 +21,12 @@ jobs:
         run: flutter pub get
 
       - name: Build WEB
-        working-directory: ./about_me_app
-        run: flutter build web --release --base-href "/crossplatform-programming-labs/about_me_app/"
+        run: flutter build web --release --base-href "/crossplatform-programming-labs/"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: about_me_app/build/web
+          path: build/web
 
   deploy:
     needs: build
