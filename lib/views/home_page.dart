@@ -2,8 +2,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+
 import '../viewmodels/user_viewmodel.dart';
 import '../viewmodels/theme_viewmodel.dart';
+import '../widgets/banner_ad_widget.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -143,6 +145,7 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
+      bottomNavigationBar: const BannerAdWidget(),
     );
   }
 }
